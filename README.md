@@ -29,6 +29,10 @@ To run this example, you need:
 
 - Qt 6.6 or later, with shadertool installed
 
+## Know issues
+
+- returns -1 for all elements on Metal on non-apple silicon, see https://bugreports.qt.io/browse/QTBUG-119447
+
 ## Building and Running
 
 1. Clone or download this repository.
@@ -43,12 +47,12 @@ The main function in the `main.cpp` file demonstrates the following:
 - Setting up the QGuiApplication.
 - Initializing the RHI with platform-specific parameters.
 - Creating buffers and a compute pipeline.
-- Loading and setting up the compute shader.
+- Loading and setting up the compute shader (a simple add).
 - Dispatching the compute command and reading back the results.
 
 ## Notes
 
-- This example assumes the presence of a compute shader in SPIR-V or MSL format, depending on the platform.
+- This example assumes the presence of a compute shader in SPIR-V format. This example uses cmake and shadertools to convert GLSL computer into SPIR-V format.
 - Error handling is minimal for brevity, but in a production environment, you should handle potential errors more robustly.
 - This is a minimal example intended for educational purposes.
 
