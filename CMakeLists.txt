@@ -15,6 +15,7 @@ qt_standard_project_setup()
 
 qt_add_executable(compute_shader
     main.cpp
+    README.md
 )
 
 #add_executable(compute_shader
