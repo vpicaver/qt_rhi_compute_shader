@@ -127,23 +127,17 @@ int main(int argc, char *argv[])
     qDebug() << "endOffscreenFrame";
     rhi->endOffscreenFrame(); //This is where readback happen
 
+    srb->deleteLater();
+    bufferA->deleteLater();
+    bufferB->deleteLater();
+    bufferResult->deleteLater();
+    computePipeline->deleteLater();
+
     qDebug() << "finish";
     rhi->finish();
 
-
-
-//    // This lambda is called when the read-back is completed
-//    if (!readBackResult.data.isEmpty()) {
-//        const float *resultData = reinterpret_cast<const float *>(readBackResult.data.constData());
-//        for (int i = 0; i < bufferSize / sizeof(float); ++i) {
-//            qDebug() << "i:" << i << "value:" << resultData[i];
-//        }
-//    } else {
-//        qWarning("Failed to read back data");
-//    }
-
     qDebug() << "Finised with frame!";
 
-    a.exec();
+    // a.exec();
     return 0;
 }
