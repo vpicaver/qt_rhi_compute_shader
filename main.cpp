@@ -43,12 +43,16 @@ int main(int argc, char *argv[])
     float dataA[numElements] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float dataB[numElements] = {11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
     float bufferResultData[numElements] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    float uniformAdd = 10;
 
     QRhiBuffer *bufferA = rhi->newBuffer(QRhiBuffer::Type::Static, QRhiBuffer::UsageFlag::StorageBuffer, bufferSize);
     bufferA->create();
 
     QRhiBuffer *bufferB = rhi->newBuffer(QRhiBuffer::Type::Static, QRhiBuffer::UsageFlag::StorageBuffer, bufferSize);
     bufferB->create();
+
+    QRhiBuffer *uniformBuffer = rhi->newBuffer(QRhiBuffer::Type::Static, QRhiBuffer::UsageFlag::UniformBuffer, sizeof(float));
+    uniformBuffer->create();
 
     // Assume bufferResult is already created similarly to bufferA and bufferB
     QRhiBuffer *bufferResult = rhi->newBuffer(QRhiBuffer::Type::Static, QRhiBuffer::UsageFlag::StorageBuffer, bufferSize);
@@ -62,6 +66,7 @@ int main(int argc, char *argv[])
     resourceUpdateBatch->uploadStaticBuffer(bufferA, offset, bufferSize, dataA);
     resourceUpdateBatch->uploadStaticBuffer(bufferB, offset, bufferSize, dataB);
     resourceUpdateBatch->uploadStaticBuffer(bufferResult, offset, bufferSize, bufferResultData);
+    resourceUpdateBatch->uploadStaticBuffer(uniformBuffer, offset, sizeof(float), &uniformAdd);
 
     QRhiComputePipeline *computePipeline = rhi->newComputePipeline();
 
@@ -71,7 +76,8 @@ int main(int argc, char *argv[])
     srb->setBindings({
         QRhiShaderResourceBinding::bufferLoad(0, QRhiShaderResourceBinding::ComputeStage, bufferA),
         QRhiShaderResourceBinding::bufferLoad(1, QRhiShaderResourceBinding::ComputeStage, bufferB),
-        QRhiShaderResourceBinding::bufferStore(2, QRhiShaderResourceBinding::ComputeStage, bufferResult)
+        QRhiShaderResourceBinding::bufferStore(2, QRhiShaderResourceBinding::ComputeStage, bufferResult),
+        QRhiShaderResourceBinding::uniformBuffer(3, QRhiShaderResourceBinding::ComputeStage, uniformBuffer)
     });
     srb->create();
 

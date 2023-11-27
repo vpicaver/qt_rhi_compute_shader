@@ -11,16 +11,16 @@ This project demonstrates the use of the Qt Rendering Hardware Interface (RHI) t
 
 The correct results should be:
 ```
-i: 0 value: 12
-i: 1 value: 14
-i: 2 value: 16
-i: 3 value: 18
-i: 4 value: 20
-i: 5 value: 22
-i: 6 value: 24
-i: 7 value: 26
-i: 8 value: 28
-i: 9 value: 30
+i: 0 value: 22
+i: 1 value: 24
+i: 2 value: 26
+i: 3 value: 28
+i: 4 value: 30
+i: 5 value: 32
+i: 6 value: 34
+i: 7 value: 36
+i: 8 value: 38
+i: 9 value: 40
 ```
 
 ## Prerequisites
